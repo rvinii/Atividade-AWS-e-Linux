@@ -1,4 +1,4 @@
-# Configuração de Requisitos AWS e Linux
+# Prática de AWS e Linux
 
 ## Parte prática: Requisitos AWS
 
@@ -63,6 +63,10 @@ Para configurar o NFS:
     IPs selecionado: `/srv/share 172.31.20.74 * (rw,all_squash)` .
 9. Atualize e reexporte os compartilhamentos: `sudo exportfs -rva`
 10. Reinicie o serviço NFS: `sudo service nfs-kernel-server restart`
+11. Para verificar o status do NFS: `sudo systemctl nfs-server`
+    
+    ![status nfs](https://github.com/rvinii/Atividade-AWS-e-Linux/assets/87549312/96618e63-ce81-4aa9-b522-2c5973fbebb4)
+
 
 ### Criar um diretório dentro do filesystem do NFS com seu nome
 
@@ -81,14 +85,21 @@ Para configurar o Apache:
 3. Inicie o Apache: `sudo systemctl start httpd`
 4. Configure-o para iniciar automaticamente no boot: `sudo systemctl enable httpd`
 5. Verifique o status do Apache: `sudo systemctl status httpd`
+   
+![status apache](https://github.com/rvinii/Atividade-AWS-e-Linux/assets/87549312/ac89166f-f7ee-4764-8bc7-adead1be4694)
+
 
 ### Criar um script para validar o status do Apache
 
 1. Crie um script, por exemplo: `sudo nano validacao_apache.sh` (escolha o nome que preferir).
-2. Adicione o código para verificar o status do Apache e gerar arquivos de saída.
+2. Adicione o código para verificar o status do Apache e gerar arquivos de saída. [Link para o valida_apache.sh](https://github.com/rvinii/Atividade-AWS-e-Linux/blob/main/valida_apache.sh)
 3. Salve o script e saia do editor.
 4. Torne o script executável: `sudo chmod +x validacao_apache.sh`
 5. Execute o script: `./validacao_apache.sh`
+6. Acesse a pasta e verifique se funcionou: `cd /srv/share/robertvini`
+
+   ![script rodando](https://github.com/rvinii/Atividade-AWS-e-Linux/assets/87549312/09eedbc3-5095-4e06-98e1-43bac8c6ccbf)
+
 
 ### Preparar a execução automatizada do script a cada 5 minutos
 
@@ -97,4 +108,8 @@ Para automatizar a execução a cada 5 minutos:
 1. Digite no terminal: `crontab -e`
 2. Adicione a seguinte linha: `*/5 * * * * /srv/share/validacao_apache.sh`
 3. Salve e saia.
+4. Verifique se funcionou.
+
+   ![script automatizado](https://github.com/rvinii/Atividade-AWS-e-Linux/assets/87549312/976e72d2-d1e1-42c8-93c5-65c0c66432ec)
+
 
