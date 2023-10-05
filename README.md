@@ -57,10 +57,12 @@ Para configurar o NFS:
 3. Verifique o status: `sudo systemctl status nfs-server`
 4. Ative o serviço na inicialização: `sudo systemctl enable nfs-server`
 5. Crie um diretório de compartilhamento: `sudo mkdir /srv/share`
-6. Defina permissões para acesso anônimo: `sudo chown nfsnobody:nfsnobody /srv/share`
-7. Configure o compartilhamento NFS no arquivo `/etc/exports`.
-8. Atualize e reexporte os compartilhamentos: `sudo exportfs -rva`
-9. Reinicie o serviço NFS: `sudo service nfs-kernel-server restart`
+6. Para não haver a necessidade de autenticação para acesso a pasta de compartilhamento do NFS, defina
+   permissões para acesso anônimo: `sudo chown nfsnobody:nfsnobody /srv/share`
+8. Dê permissão para o NFS compartilhar o diretório com o intervalo de intervalo de 
+    IPs selecionado: `/srv/share 172.31.20.74 * (rw,all_squash)` .
+9. Atualize e reexporte os compartilhamentos: `sudo exportfs -rva`
+10. Reinicie o serviço NFS: `sudo service nfs-kernel-server restart`
 
 ### Criar um diretório dentro do filesystem do NFS com seu nome
 
@@ -68,7 +70,7 @@ Para criar um diretório:
 
 1. Navegue até o diretório de compartilhamento: `cd /srv/share`
 2. Crie um diretório com seu nome: `sudo mkdir robertvini` (substitua "robertvini" pelo seu nome)
-3. Defina permissões: `chmod 777 robertvini`
+3. Defina permissões leitura, gravação e execução ao diretório: `chmod 777 robertvini`
 
 ### Configurar um servidor Apache
 
